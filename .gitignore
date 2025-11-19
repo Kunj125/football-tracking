@@ -1,2 +1,8 @@
-data/raw/
+data/
 *.ipynb_checkpoints/
+
+*.env
+logs/
+experiments/
+batch_files/
+Football-(updated)-1/
