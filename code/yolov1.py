@@ -41,12 +41,26 @@ model = YOLO("yolo11n.pt")
 results = model.train(
     data=str(data_yaml),
     epochs=40,
-    imgsz=960,
+    imgsz=1920,
     batch=16,
     project=str("experiments"),
     name="football_det_y11n_v1",
     cos_lr=True,
 )
 
-metrics = model.val()
-print(metrics)
+# metrics = model.val()
+# print(metrics)
+
+test_metrics = model.val(
+    data=str(data_yaml),
+    split="test",
+)
+
+names = model.names
+print("Test mAP50-95:", test_metrics.box.map)
+print("Test mAP50:   ", test_metrics.box.map50)
+
+print("\nPer-class mAP50:")
+for i, m in enumerate(test_metrics.box.maps):
+    print(f"  {i} ({names[i]}): {m:.3f}")
+
